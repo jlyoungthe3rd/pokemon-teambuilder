@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react"
 import SearchBox from "./SearchBox"
+import '../styles/PokemonList.css'
 
 
-function PokemonSelection() {
+
+function PokemonList() {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
     const [searchItem, setSearchItem] = useState('')
@@ -20,6 +22,7 @@ function PokemonSelection() {
         const pokemonNumber = Math.floor(Math.random() * 898)
         try {
             const response = await fetch(`${url}/${pokemonNumber}`)
+            console.log(response)
             if (!response.ok) {
                 throw new Error(`Error: ${response.status}`)
             }
@@ -75,18 +78,20 @@ function PokemonSelection() {
         getRandomPokemon()
     }, [])
 
-    return <>
-        <SearchBox onChange={handleChange} onSubmit={handleSubmit} searchItem={searchItem} />
-        <div >
-            {loading === true && <p>Loading...</p>}
-            <ul>{!error ? searchResult : 'pokemon not found'}</ul>
-            <div>
-                <img src={searchResultPhoto}></img>
+    return (
+        <div>
+            <SearchBox onChange={handleChange} onSubmit={handleSubmit} searchItem={searchItem} />
+            <div className="PokemonList">
+                {loading === true && <p>Loading...</p>}
+                <p>{!error ? searchResult : 'pokemon not found'}</p>
+                <div className="pokemonViewWindow">
+                    <img alt={`pokemon`} src={searchResultPhoto}></img>
+                </div>
+                <button onClick={getRandomPokemon}>Random</button>
             </div>
-            <button onClick={getRandomPokemon}>Random</button>
         </div>
-    </>
+    )
 }
 
-export default PokemonSelection
+export default PokemonList
 
