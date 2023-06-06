@@ -1,10 +1,6 @@
 import { useState } from "react"
-import SearchBox from "./SearchBox"
-import PokemonList from "./PokemonList"
-import PokemonTeam from "./PokemonTeam"
-
-const url = `https://pokeapi.co/api/v2/pokemon`
-
+import PokemonList from "./components/PokemonList"
+import './styles/styles.css'
 
 function App() {
   const [selectedPokemon, setSelectedPokemon] = useState([])
@@ -13,7 +9,6 @@ function App() {
 
     <PokemonList selectedPokemon={selectedPokemon}
     />
-    <PokemonTeam />
   </>
 }
 
